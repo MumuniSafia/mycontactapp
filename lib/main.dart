@@ -22,6 +22,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List myContacts = listofContacts;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -43,7 +44,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: ListView.builder(
-          itemCount: 10,
+          itemCount: myContacts.length,
           itemBuilder: (BuildContext context, index) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,18 +74,23 @@ class HomePage extends StatelessWidget {
                   ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ContactPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ContactPage(
+                                  myContacts: myContacts[index],
+                                )));
                   },
-                  child: const ListTile(
+                  child: ListTile(
                     leading: CircleAvatar(
-                      backgroundImage: AssetImage("images/lady.jpg"),
+                      backgroundImage: NetworkImage(
+                          "${myContacts[index]["image"]}${index + 50}"),
                     ),
                     title: Text(
-                      "Techries Ghana",
+                      myContacts[index]["name"],
                       style: TextStyle(fontWeight: FontWeight.w800),
                     ),
-                    subtitle: Text("+233 505 419 44"),
+                    subtitle: Text(myContacts[index]["name"]),
                     trailing: Icon(Icons.more_horiz),
                   ),
                 ),
@@ -106,3 +112,38 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+List listofContacts = [
+  {
+    "name": "Mumuni Safia",
+    "location": "Sombo",
+    "email": "safiyatmoomin@gmail.com",
+    "phone": "+233500321965",
+    "group": "Mumuni family",
+    "image": "https://picsum.photos/200/300?random="
+  },
+  {
+    "name": "Seiku Hamida",
+    "location": "Kpaguri",
+    "email": "safiyatmoomin@gmail.com",
+    "phone": "+233500477615",
+    "group": "Mumuni family",
+    "image": "https://picsum.photos/200/300?random="
+  },
+  {
+    "name": "Jamil Muslim",
+    "location": "Gudaayiri",
+    "email": "safiyatmoomin@gmail.com",
+    "phone": "+233595254880",
+    "group": "Mumuni family",
+    "image": "https://picsum.photos/200/300?random="
+  },
+  {
+    "name": "Sherifdeen Nakeeyat",
+    "location": "Konta",
+    "email": "safiyatmoomin@gmail.com",
+    "phone": "+233200514544",
+    "group": "Mumuni family",
+    "image": "https://picsum.photos/200/300?random="
+  },
+];
